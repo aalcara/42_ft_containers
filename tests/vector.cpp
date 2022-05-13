@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.hpp                                         :+:      :+:    :+:   */
+/*   vector.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 18:06:09 by aalcara-          #+#    #+#             */
-/*   Updated: 2022/04/18 18:14:32 by aalcara-         ###   ########.fr       */
+/*   Created: 2022/05/11 17:36:42 by aalcara-          #+#    #+#             */
+/*   Updated: 2022/05/11 17:42:28 by aalcara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_HPP
-#define VECTOR_HPP
+#include "include.hpp"
 
-#include <memory>
-
-template < class T, class Alloc = std::allocator<T> >
-class vector
+int main(void)
 {
-	
-};
-
-#endif
+	std::cout << "funfou" <<std::endl;
+}

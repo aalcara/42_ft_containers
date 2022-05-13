@@ -1,2 +1,2 @@
 # 42_ft_containers
-Reimplment of C++ containers!
+C++ containers, easy mode

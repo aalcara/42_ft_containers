@@ -5,36 +5,48 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/01/25 16:05:13 by aalcara-          #+#    #+#              #
-#    Updated: 2022/04/16 10:09:36 by aalcara-         ###   ########.fr        #
+#    Created: 2022/05/12 16:51:32 by aalcara-          #+#    #+#              #
+#    Updated: 2022/05/13 18:02:48 by aalcara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = a.out
-SRC = main.cpp
-OBJ = $(SRC:.cpp=.o)
+NAME = ft_containers
+
+INTRA = main.cpp
+VECTOR = vector.cpp
+
+SRC = vector.cpp
+
+TDIR = tests/
+SDIR = containers/
+ODIR = obj/
+
 CPP = c++
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
+INC = -I./$(SDIR)
 RM = rm -fr
 
-$(NAME): $(OBJ)
-	$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+vector:	$(TDIR)$(VECTOR)
+	mkdir -p $(ODIR)
+	$(CPP) $(CPPFLAGS) $(INC) $< -o $(ODIR)$@
+	$(CPP) $(CPPFLAGS) $(INC) $< -D _STL -o $(ODIR)$@_stl
 
-%.o: %.cpp
-	$(CPP) $(CPPFLAGS) -c $< -o $@
+intra:	$(TDIR)$(INTRA)
+	mkdir -p $(ODIR)
+	$(CPP) $(CPPFLAGS) $(INC) $< -o $(ODIR)$@
+	$(CPP) $(CPPFLAGS) $(INC) $< -D _STL -o $(ODIR)$@_stl
 
-all: $(NAME)
+test_vector:	vector
+	./$(ODIR)vector
+	./$(ODIR)vector_stl
 
-valgrind:	$(NAME)
-	valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
-
-run: all
-	./$(NAME)
+test_intra:	intra
+	./$(ODIR)intra
+	./$(ODIR)intra_stl
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(ODIR)
 
 fclean: clean
-	$(RM) $(NAME)
 
 re: fclean all

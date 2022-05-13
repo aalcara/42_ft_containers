@@ -1,0 +1,56 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    oldMakefile.txt                                    :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/01/25 16:05:13 by aalcara-          #+#    #+#              #
+#    Updated: 2022/05/12 17:52:04 by aalcara-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = ft_containers
+
+INTRA = main.cpp
+VECTOR = vector.cpp
+
+TESTDIR = tests/
+INCLUDE = -I./containers/
+INTRA_SRC = $(addprefix $(TESTDIR), $(INTRA))
+VECTOR_SRC = $(addprefix $(TESTDIR), $(VECTOR))
+
+
+OBJ = $(SRC:.cpp=.o)
+VEC_OBJ = tests/vector.o
+CPP = c++
+CPPFLAGS = -Wall -Wextra -Werror -std=c++98
+RM = rm -fr
+
+$(NAME): $(OBJ)
+	$(CPP) $(CPPFLAGS) $(OBJ) -o $(NAME)
+	$(CPP) $(CPPFLAGS) $(OBJ) -D _STL -o $(NAME)_stl
+
+%.o: %.cpp 
+	$(CPP) $(CPPFLAGS) $(INCLUDE) -c $< -o $@
+
+all: $(NAME)
+
+test: all
+	./$(NAME)
+
+test_vector: $(VEC_OBJ)
+	$(CPP) $(CPPFLAGS) $(VEC_OBJ) -o $(NAME)
+	$(CPP) $(CPPFLAGS) $(VEC_OBJ) -D _STL -o $(NAME)_stl
+	./ft_containers
+
+
+
+clean:
+	$(RM) $(OBJ)
+
+fclean: clean
+	$(RM) $(NAME)
+	$(RM) $(NAME)_stl
+
+re: fclean all
