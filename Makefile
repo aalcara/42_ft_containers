@@ -6,47 +6,50 @@
 #    By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/12 16:51:32 by aalcara-          #+#    #+#              #
-#    Updated: 2022/05/13 18:02:48 by aalcara-         ###   ########.fr        #
+#    Updated: 2022/05/14 20:22:39 by aalcara-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_containers
 
-INTRA = main.cpp
-VECTOR = vector.cpp
-
+MAIN = main.cpp
 SRC = vector.cpp
+OBJ = $(SRC:.cpp=.o)
 
 TDIR = tests/
 SDIR = containers/
 ODIR = obj/
+LDIR = log/
+
+DIR_OBJ = $(addprefix $(ODIR), $(OBJ))
 
 CPP = c++
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
-INC = -I./$(SDIR)
+INC = -I./$(SDIR) -I./$(TDIR)
 RM = rm -fr
 
-vector:	$(TDIR)$(VECTOR)
+$(ODIR)%.o:	$(TDIR)%.cpp
 	mkdir -p $(ODIR)
-	$(CPP) $(CPPFLAGS) $(INC) $< -o $(ODIR)$@
-	$(CPP) $(CPPFLAGS) $(INC) $< -D _STL -o $(ODIR)$@_stl
+	$(CPP) $(CPPFLAGS) $(INC) -c $< -o $@
 
-intra:	$(TDIR)$(INTRA)
-	mkdir -p $(ODIR)
-	$(CPP) $(CPPFLAGS) $(INC) $< -o $(ODIR)$@
-	$(CPP) $(CPPFLAGS) $(INC) $< -D _STL -o $(ODIR)$@_stl
+$(NAME): $(DIR_OBJ) $(MAIN)
+	$(CPP) $(CPPFLAGS) $(INC) $(MAIN) $< -o $@
+	$(CPP) $(CPPFLAGS) $(INC) $(MAIN) $< -D _STL -o $@_stl
 
-test_vector:	vector
-	./$(ODIR)vector
-	./$(ODIR)vector_stl
+all: $(NAME)
 
-test_intra:	intra
-	./$(ODIR)intra
-	./$(ODIR)intra_stl
+test: $(NAME)
+	mkdir -p $(LDIR)
+	./$(NAME) > $(LDIR)ft.log
+	./$(NAME)_stl > $(LDIR)stl.log
+	diff $(LDIR)ft.log $(LDIR)stl.log
 
 clean:
 	$(RM) $(ODIR)
+	$(RM) $(LDIR)
 
 fclean: clean
+	$(RM) $(NAME)
+	$(RM) $(NAME)_stl
 
 re: fclean all

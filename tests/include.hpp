@@ -5,20 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 17:37:44 by aalcara-          #+#    #+#             */
-/*   Updated: 2022/05/11 17:42:44 by aalcara-         ###   ########.fr       */
+/*   Created: 2022/05/14 18:21:22 by aalcara-          #+#    #+#             */
+/*   Updated: 2022/05/14 20:33:06 by aalcara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FT_CONTAINERS_HPP
+#define FT_CONTAINERS_HPP
+
 #include <iostream>
 
-#ifdef _STL //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
-	#include <vector>
-	namespace ft = std;
-#else
-	#include <map.hpp>
-	#include <stack.hpp>
-	#include <vector.hpp>
+#include "vector.hpp"
+
+void	test_vector(void);
+
+
 #endif

@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.cpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 17:36:42 by aalcara-          #+#    #+#             */
-/*   Updated: 2022/05/14 20:32:40 by aalcara-         ###   ########.fr       */
+/*   Created: 2022/05/11 17:37:44 by aalcara-          #+#    #+#             */
+/*   Updated: 2022/05/14 20:31:07 by aalcara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include.hpp"
 
-#ifndef VECTOR_TEST
-#define VECTOR_TEST
-
-void test_vector(void)
-{
-	std::cout << "========================" <<std::endl;
-	std::cout << "         vector         " <<std::endl;
-	std::cout << "========================" <<std::endl;
-
-	
-
-}
-
+#ifdef _STL //CREATE A REAL STL EXAMPLE
+	#include <map>
+	#include <stack>
+	#include <vector>
+	namespace ft = std;
+	#define VERSION "stl"
+#else
+	#include <map.hpp>
+	#include <stack.hpp>
+	#include <vector.hpp>
+	#define VERSION "ft"
 #endif
+
+int main(void)
+{
+	std::cout << "Version: " << VERSION <<std::endl;
+	// std::string parsed_arg = argv[1];
+	// if (parsed_arg == "vector")
+	// 	test_vector();
+	test_vector();
+	
+}
