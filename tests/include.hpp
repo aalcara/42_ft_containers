@@ -6,7 +6,7 @@
 /*   By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 18:21:22 by aalcara-          #+#    #+#             */
-/*   Updated: 2022/05/14 20:33:06 by aalcara-         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:17:24 by aalcara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,18 @@
 
 #include <iostream>
 
-#include "vector.hpp"
+#ifdef _STL //CREATE A REAL STL EXAMPLE
+	#include <map>
+	#include <stack>
+	#include <vector>
+	namespace ft = std;
+	#define VERSION "stl"
+#else
+	#include <map.hpp>
+	#include <stack.hpp>
+	#include <vector.hpp>
+	#define VERSION "ft"
+#endif
 
 void	test_vector(void);
 
