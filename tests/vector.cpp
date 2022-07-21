@@ -6,7 +6,7 @@
 /*   By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:36:42 by aalcara-          #+#    #+#             */
-/*   Updated: 2022/07/18 19:44:36 by aalcara-         ###   ########.fr       */
+/*   Updated: 2022/07/21 08:46:15 by aalcara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ void test_vector(void)
 	std::cout << "         vector         " <<std::endl;
 	std::cout << "========================" <<std::endl;
 
+
+	/* 
+	**	Constructors
+	*/
 	std::cout << "\n---\nconstructors\n---" <<std::endl;
 	ft::vector<std::string>  empty_vec;
 	ft::vector<std::string> fill_vec(6, "abc");
@@ -32,7 +36,10 @@ void test_vector(void)
 	empty_vec.push_back("FFF");
 	empty_vec.push_back("GGG");
 	empty_vec.push_back("HHH");
-
+	
+	/* 
+	**	Iterators
+	*/
 	std::cout << "\n---\niterators\n---" <<std::endl;
 	fill_vec.push_back("123");
 	ft::vector<std::string>::iterator it;
@@ -89,6 +96,9 @@ void test_vector(void)
 	std::cout << "offset dereference operator: " << std::endl;
 	std::cout << "it2[6]: " << (it2[6]) << std::endl;
 	
+	/* 
+	**	Reverse Iterators
+	*/
 	std::cout << "\n---\nReverse iterators\n---" <<std::endl;
 	ft::vector<std::string>::reverse_iterator reverseit;
 	ft::vector<std::string>::reverse_iterator reverseit2(empty_vec.rbegin());
@@ -146,8 +156,38 @@ void test_vector(void)
 	std::cout << "it2 <= it: " << (it2 <= it) << std::endl;
 	std::cout << "it2 >= it: " << (it2 >= it) << std::endl;
 
+	/* 
+	**	Constructor that need iterators
+	*/
+	std::cout << "\n---\nconstructors that need iterators\n---" <<std::endl;
+	ft::vector<int> first (4, 100);
+	std::cout << "range constructor:" <<std::endl;
+	ft::vector<int> range_vec (first.begin(),first.end()); 
+	ft::vector<int>::iterator range_begin(range_vec.begin());
+	ft::vector<int>::iterator range_end(range_vec.end());
 
-	
+	while (range_begin != range_end)
+	{
+		std::cout << *range_begin << " ";
+		range_begin++;
+	}
+	std::cout << std::endl;
+
+	// copy constructor
+	ft::vector<std::string> copy_vec(empty_vec);
+	std::cout << "copy constructor:";
+	ft::vector<std::string>::iterator copy_begin(copy_vec.begin());
+	ft::vector<std::string>::iterator copy_end(copy_vec.end());
+
+	while (copy_begin != copy_end)
+	{
+		std::cout << " " << *copy_begin;
+		copy_begin++;
+	}
+
+	/* 
+	**	Member Functions Iterators
+	*/
 	std::cout << "\n---\nmember functions iterators\n---" <<std::endl;
 	ft::vector<std::string>::iterator it_begin(empty_vec.begin());
 	std::cout << "it_begin: " << *it_begin << std::endl;
@@ -188,8 +228,27 @@ void test_vector(void)
 	std::cout << "it_cend--: " << *it_cend << std::endl;
 	
 
-	// std::cout << "---\nconstructors that need iterators" <<std::endl;
-	// std::cout << "TEST X: range constructor" <<std::endl;
+	/* 
+	**	Capacity member functions
+	*/
+	std::cout << "\n---\nCapacity member functions\n---" <<std::endl;
+	// size
+	std::cout << "size:" << std::endl;
+	std::cout << "empty_vec size: " << empty_vec.size() << std::endl;
+	std::cout << "other_vec size: " << other_vec.size() << std::endl;
+	std::cout << "fill_vec size: " << fill_vec.size() << std::endl;
+	std::cout << "first size: " << first.size() << std::endl;
+	std::cout << "range_vec size: " << range_vec.size() << std::endl;
+	std::cout << "copy_vec size: " << copy_vec.size() << std::endl;
+	// max_size
+	std::cout << "max_size:" << std::endl;
+	std::cout << "empty_vec max_size: " << empty_vec.max_size() << std::endl;
+	std::cout << "other_vec max_size: " << other_vec.max_size() << std::endl;
+	std::cout << "fill_vec max_size: " << fill_vec.max_size() << std::endl;
+	std::cout << "first max_size: " << first.max_size() << std::endl;
+	std::cout << "range_vec max_size: " << range_vec.max_size() << std::endl;
+	std::cout << "copy_vec max_size: " << copy_vec.max_size() << std::endl;
+	
 
 }
 

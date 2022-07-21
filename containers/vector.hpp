@@ -6,7 +6,7 @@
 /*   By: aalcara- <aalcara-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 18:06:09 by aalcara-          #+#    #+#             */
-/*   Updated: 2022/07/18 19:33:23 by aalcara-         ###   ########.fr       */
+/*   Updated: 2022/07/21 08:43:03 by aalcara-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 #include <memory>
 #include <cstddef>
+#include "type_traits.hpp"
 #include "random_access_iterator.hpp"
 #include "reverse_iterator.hpp"
 
 namespace ft
 {
-	template <class T, class Alloc = std::allocator<T> >
+	template <class T, class Allocator = std::allocator<T> >
 	class vector
 	{
 	public:
@@ -28,7 +29,7 @@ namespace ft
 			MEMBER TYPES
 		=================*/
 		typedef T value_type;
-		typedef Alloc allocator_type;
+		typedef Allocator allocator_type;
 		typedef typename allocator_type::reference reference;
 		typedef typename allocator_type::const_reference const_reference;
 		typedef typename allocator_type::pointer pointer;
@@ -62,23 +63,21 @@ namespace ft
 			this->_capacity = n;
 			this->_data = _alloc.allocate(this->_size);
 			for (size_type i = 0; i < n; i++)
-			{
 				this->_alloc.construct(&_data[i], val);
-			}
 		}
 
 		//* range constructor
 		//* Constructs a container with as many elements as the range [first,last), with each element constructed from its corresponding element in that range, in the same order.
 		template <class InputIterator>
-		vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type())
+		vector(InputIterator first, InputIterator last,
+			const allocator_type &alloc = allocator_type(), 
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type = InputIterator())
 		{
 			this->_alloc = alloc;
-			if (this->_data)
-				this->_alloc.deallocate(this->_data, this->size);
 			this->_size = last - first;
 			this->_capacity = this->_size;
 			this->_data = this->_alloc.allocate(this->_size);
-			for (size_type i = 0; 0 < this->_size; i++)
+			for (size_type i = 0; i < this->_size; i++)
 			{
 				this->_alloc.construct(&this->_data[i], *first);
 				first++;
@@ -86,7 +85,10 @@ namespace ft
 		}
 		//* copy constructor
 		//* Constructs a container with a copy of each of the elements in x, in the same order.
-		// vector (const vector& x);
+		vector (const vector& x)
+		{
+			*this = x;
+		}
 
 		/*=================
 		ITERATORS
@@ -131,6 +133,18 @@ namespace ft
 			return const_reverse_iterator(this->begin() - 1);
 		}
 
+		/*=================
+		CAPACITY
+		=================*/
+		size_type size(void) const
+		{
+			return (this->_size);
+		}
+
+		size_type max_size(void) const
+		{
+			return (this->_alloc.max_size());
+		}
 		/*=================
 		MODIFIERS
 		=================*/
